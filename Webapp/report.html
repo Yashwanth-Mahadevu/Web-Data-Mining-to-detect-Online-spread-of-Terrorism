@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic Metadata -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Report to Government</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/responsive.css">
+    <style>
+        body {
+            background-color: rgba(196, 238, 163, 0.8);
+            background-image: url('static/images/report_bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
+            color: #f5c5c5;
+        }
+
+        .report_section {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            margin: 50px auto;
+        }
+
+        .heading_container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .heading_container h2 {
+            color: #00bfff;
+            font-weight: 700;
+            font-size: 32px;
+        }
+
+        .form_container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            border: 2px solid #00bfff;
+            padding: 10px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .form-control::placeholder {
+            color: #ffffff;
+        }
+
+        .btn_box {
+            text-align: center;
+        }
+
+        .btn_box button {
+            background-color: #00bfff;
+            color: #000000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn_box button:hover {
+            background-color: #007acc;
+        }
+
+        .department_options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .department_options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .department_options input[type="radio"] {
+            accent-color: #00bfff;
+        }
+    </style>
+</head>
+<body>
+    <section class="report_section">
+        <div class="heading_container">
+            <h2>Report to Government</h2>
+        </div>
+        <div class="form_container">
+            <form id="reportForm">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Your Name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Your Email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" placeholder="Message" name="message" required></textarea>
+                </div>
+                <div class="department_options">
+                    <label>
+                        <input type="radio" name="department" value="Police Station" required>
+                        Police Station
+                    </label>
+                    <label>
+                        <input type="radio" name="department" value="CM Query" required>
+                        CM Query
+                    </label>
+                    <label>
+                        <input type="radio" name="department" value="Cyber Threats" required>
+                        Cyber Threats
+                    </label>
+                    <label>
+                        <input type="radio" name="department" value="Intelligence Agency" required>
+                        Intelligence Agency
+                    </label>
+                    <label>
+                        <input type="radio" name="department" value="Emergency Services" required>
+                        Emergency Services
+                    </label>
+                </div>
+                <div class="btn_box">
+                    <button type="submit">SEND REPORT</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script src="static/js/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="static/js/bootstrap.js"></script>
+    <script src="static/js/custom.js"></script>
+    <script>
+        document.getElementById('reportForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const report = Object.fromEntries(formData.entries());
+            const department = formData.get('department').toLowerCase().replace(' ', '_');
+            
+            let reports = JSON.parse(localStorage.getItem('reports')) || {};
+            if (!reports[department]) {
+                reports[department] = [];
+            }
+            reports[department].push(report);
+            localStorage.setItem('reports', JSON.stringify(reports));
+
+            alert(`Report sent to "${formData.get('department')}" successfully.`);
+            this.reset();
+        });
+    </script>
+</body>
+</html>

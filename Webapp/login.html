@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="static/images/fevicon.png" type="image/x-icon">
+  <title>Terrorist Activity</title>
+
+  <!-- bootstrap core css -->
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.css')}}"/>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- font awesome style -->
+  <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+
+
+  <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"  />
+
+  <link rel="stylesheet" href="{{url_for('static',filename='css/responsive.css')}}"  />
+  <style>
+    body {
+  background-image: url("{{ url_for('static', filename='images/abcd.jpg') }}");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Optional: Adjust the contact section styling */
+.contact_section {
+  background-color: rgba(41 22 217 / 0%); /* Add a slight white background with transparency */
+  padding: 20px;
+  border-radius: 10px;
+}
+  </style>
+</head>
+
+<body class="sub_page">
+
+
+  <!-- contact section -->
+  <section class="contact_section ">
+  
+
+      
+        
+        <div class="col-md-5 mx-auto">
+          <div class="form_container">
+            <div class="heading_container heading_center">
+              <h2 style="color: white;">Login</h2>
+            </div>
+            <form action="{{ url_for('login')}}" method="POST">
+              <div class="form-row">
+                <div class="form-group col">
+                  <input type="text" class="form-control" placeholder="Username" name="id"/>
+                </div>
+              </div>
+             
+              <div class="form-row">
+                <div class="form-group col">
+                  <input type="password" class="form-control" placeholder="password" name="pass" />
+                </div>
+              </div>
+              
+              <div class="btn_box">
+                <button >
+                  SUBMIT
+                </button>
+              </div><br>
+             <center> <a href="#" style="color:rgb(249, 81, 9);font-size: 25px;">New User? register</a><br><br>
+              <a href="#" style="color:rgb(243, 9, 173); font-size: 25px;">Forgot Password</a></center>
+            </form>
+          </div>
+
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              {% for message in messages %}
+           <span>{{ message }}</span>
+              {% endfor %}
+          {% endif %}
+        {% endwith %}
+        </div>
+     
+  
+  </section>
+
+
+  <script src="{{url_for('static',filename='js/jquery-3.4.1.min.js')}}"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+  <script src="{{url_for('static',filename='js/custom.js')}}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+  <!-- End Google Map -->
+</body>
+
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic Metadata -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Panel</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/responsive.css">
+    <style>
+        body {
+            background-color: rgba(3, 5, 1, 0.8);
+            background-image: url('static/images/admin_bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
+            color: #f5c5c5;
+        }
+        
+
+
+        .admin_section {
+            background-color: rgba(244, 183, 183, 0.8);
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        .heading_container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .heading_container h2 {
+            color: #f34b85;
+            font-weight: 700;
+            font-size: 32px;
+        }
+
+        .form_container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            color:#000000
+        }
+
+        .form-control {
+            border-radius: 5px;
+            border: 2px solid #00bfff;
+            padding: 10px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .form-control::placeholder {
+            color: #ffffff;
+        }
+
+        .btn_box {
+            text-align: center;
+        }
+
+        .btn_box button {
+            background-color: #00bfff;
+            color: #000000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn_box button:hover {
+            background-color: #007acc;
+        }
+
+        .department_options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .department_options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .department_options input[type="radio"] {
+            accent-color: #00bfff;
+        }
+
+        .report_list {
+            margin-top: 30px;
+            color: white;
+        }
+
+        .report_item {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #00bfff;
+            color: #ffffff;
+        }
+
+        .report_item h4 {
+            color: #00bfff;
+        }
+
+       
+
+    </style>
+</head>
+<body>
+    <header class="header_section">
+      
+        <div class="header_bottom">
+          <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg custom_nav-container ">
+              <a class="navbar-brand " href="">Terrorism Activity Detection</a>
+  
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class=""> </span>
+              </button>
+  
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav  ">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('contact')}}">Prediction</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home')}}">
+                      <i class="fa fa-user" aria-hidden="true"></i>
+                      <span>
+                        Logout
+                      </span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </header>  
+    <section class="admin_section">
+        <div class="heading_container">
+            <h2>Admin Panel</h2>
+        </div>
+        <div class="form_container">
+            <div class="department_options">
+                <label>
+                    <input type="radio" name="department" value="police_station" required>
+                    Police Station
+                </label>
+                <label>
+                    <input type="radio" name="department" value="cm_query" required>
+                    CM Query
+                </label>
+                <label>
+                    <input type="radio" name="department" value="cyber_threats" required>
+                    Cyber Threats
+                </label>
+                <label>
+                    <input type="radio" name="department" value="intelligence_agency" required>
+                    Intelligence Agency
+                </label>
+                <label>
+                    <input type="radio" name="department" value="emergency_services" required>
+                    Emergency Services
+                </label>
+            </div>
+            <div class="btn_box">
+                <button type="button" onclick="viewReports()">VIEW REPORTS</button>
+            </div>
+        </div>
+
+        <div class="report_list" id="reportList">
+            <!-- Reports will be dynamically inserted here -->
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script src="static/js/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="static/js/bootstrap.js"></script>
+    <script src="static/js/custom.js"></script>
+    <script>
+        function viewReports() {
+            const department = document.querySelector('input[name="department"]:checked').value;
+            const reports = JSON.parse(localStorage.getItem('reports')) || {};
+            const departmentReports = reports[department] || [];
+            
+            const reportList = document.getElementById('reportList');
+            reportList.innerHTML = '';
+            if (departmentReports.length === 0) {
+                reportList.innerHTML = '<p>No messages found</p>';
+            } else {
+                departmentReports.forEach(report => {
+                    const reportItem = document.createElement('div');
+                    reportItem.classList.add('report_item');
+                    reportItem.innerHTML = `
+                        <h4>${report.subject}</h4>
+                        <p><strong>Name:</strong> ${report.name}</p>
+                        <p><strong>Email:</strong> ${report.email}</p>
+                        <p><strong>Message:</strong> ${report.message}</p>
+                    `;
+                    reportList.appendChild(reportItem);
+                });
+            }
+        }
+    </script>
+     <section class="info_section ">
+        <div class="container">
+          <div class="info_top">
+            <div class="row">
+              <div class="col-md-3 ">
+                <a class="navbar-brand" href="">
+                  Terror Alert
+                </a>
+              </div>
+              <div class="col-md-5 ">
+                <div class="info_contact">
+                  <a href="">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>
+                      Location
+                    </span>
+                  </a>
+                  <a href="">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <span>
+                      +91 1234567890
+                    </span>
+                  </a>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          <div class="info_bottom">
+            <div class="row">
+              <div class="col-lg-3 col-md-6">
+                <div class="info_detail">
+                  <h5>
+                    Company
+                  </h5>
+                  <p>
+                    Welcome to our Terrorist Message Detection website. Our platform empowers users to report suspicious activities anonymously and securely. Together, we can help authorities prevent potential threats and ensure public safety.
+                  </p>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="info_form">
+                  <h5>
+                    NEWSLETTER
+                  </h5>
+                  <form action="">
+                    <input type="text" placeholder="Enter Your Email" />
+                    <button type="submit">
+                      Subscribe
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="info_detail">
+                  <h5>
+                    Services
+                  </h5>
+                  <p>
+                    
+Our services include real-time threat reporting and analysis, allowing users to swiftly alert authorities about potential terrorist activities. We ensure anonymous and secure communication to protect the safety and privacy of our users.
+                  </p>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-6">
+                <div class="">
+                  <h5>
+                    Useful links
+                  </h5>
+                  <ul class="info_menu">
+                    <li>
+                      <a href="">
+                        Home
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ url_for('about')}}">
+                        About
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ url_for('about')}}">
+                        Services
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ url_for('cont')}}">
+                        Team
+                      </a>
+                    </li>
+                    <li class="mb-0">
+                      <a href="{{ url_for('cont')}}">
+                        Contact Us
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+    
+    
+      <script src="{{url_for('static',filename='js/jquery-3.4.1.min.js')}}"></script>
+      <!-- popper js -->
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+      <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+      <script src="{{url_for('static',filename='js/custom.js')}}"></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+      <!-- End Google Map -->
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="static/images/fevicon.png" type="image/x-icon">
+  <title>Terrorism Activity Detection</title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.css')}}"/>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- font awesome style -->
+  <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+
+
+  <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"  />
+
+  <link rel="stylesheet" href="{{url_for('static',filename='css/responsive.css')}}"  />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #c6b4ed;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #a9dfd3;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #00796b;
+        }
+        .tweet {
+            border-bottom: 1px solid #c96334;
+            padding: 10px 0;
+        }
+        .tweet:last-child {
+            border-bottom: none;
+        }
+        .tweet h2 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #00796b;
+        }
+        .tweet p {
+            margin: 5px 0;
+            color: #d25b5b;
+        }
+        .tweet span {
+            display: block;
+            color: #999;
+            font-size: 0.9em;
+        }
+        .stats {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #eab8de;
+            border: 1px solid #c5e1a5;
+            border-radius: 5px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #00796b;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #004d40;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Analysis</h1>
+    <div id="tweets-container"></div>
+    
+    
+</div>
+
+<script>
+    const tweets = [
+        "Mass grave of Iraqis killed by ISIS terrorists unearthed in Kirkuk",
+        "US court orders Iran to pay $879 mln to Saudi Arabia's Khobar bombing survivors",
+        "Muslim Brotherhood scheme targeting Egypt foiled.",
+        "Terrorists' likely to target police personnel deployed on COVID-19 duty, warn Delhi Police",
+        "The Turkmen connection to Islamic State's new leader",
+        "The Inconvenient Truth About ISIS - The group is even bigger now, and America’s conflict with Iran is only making the fight against it more complicated",
+        "French police shoot man dead near Paris after fatal stabbing",
+        "The west ignores the growth of Islamic insurgents in Africa at its peril",
+        "Americans who thwarted train terror attack become French citizens",
+        "Five Abu Sayyaf members surrender over Philippine church bombing",
+        "Norway mosque shooter jailed for 21 years for murder, anti-terrorism offence",
+        "Chad's army says 52 soldiers, 1,000 Boko Haram fighters killed in operation",
+        "Mozambique forces killed over 100 Islamist insurgents in past month",
+        "Two Pakistani Troops Killed In North Waziristan Bomb Attack",
+        "Trial of 'RAW Agent' in German Court Casts Spotlight on India's Secret War Against Khalistan Terror in Europe"
+    ];
+
+    const firstNames = [
+        "Amit", "Priya", "Ravi", "Anita", "Vikram", "Neha", "Raj", "Sunita",
+        "Arun", "Meera", "Sanjay", "Pooja", "Ravi", "Sita", "Rakesh", "Kavita",
+        "Deepak", "Nisha", "Suresh", "Anjali", "Ajay", "Shweta", "Vijay", "Rina"
+    ];
+
+    const lastNames = [
+        "Sharma", "Patel", "Gupta", "Singh", "Kumar", "Mehta", "Reddy", "Nair",
+        "Iyer", "Chopra", "Verma", "Jain", "Kapoor", "Desai", "Rao", "Joshi"
+    ];
+
+    const sensitiveKeywords = [
+        { keyword: "bomb", name: "Raj Sharma", twitterId: "@rajsharma999" },
+        { keyword: "kill", name: "Priya Patel", twitterId: "@priyapatel123" },
+        { keyword: "suicide", name: "Anita Gupta", twitterId: "@anitagupta456" },
+        { keyword: "hack", name: "Vikram Mehta", twitterId: "@vikrammehta789" },
+        { keyword: "threat", name: "Ravi Singh", twitterId: "@ravisingh321" },
+        { keyword: "gun", name: "Sunita Kumar", twitterId: "@sunitakumar654" },
+        { keyword: "shoot", name: "Deepak Reddy", twitterId: "@deepakreddy852" }
+    ];
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    function getSensitiveUser(tweet) {
+        for (const keyword of sensitiveKeywords) {
+            if (tweet.toLowerCase().includes(keyword.keyword)) {
+                return keyword;
+            }
+        }
+        return {
+            name: `${firstNames[getRandomInt(0, firstNames.length)]} ${lastNames[getRandomInt(0, lastNames.length)]}`,
+            twitterId: `@user${getRandomInt(1, 1000)}`
+        };
+    }
+
+    function generateRandomTweet() {
+        const tweetIndex = getRandomInt(0, tweets.length);
+        const tweet = tweets[tweetIndex];
+        const user = getSensitiveUser(tweet);
+        const date = new Date();
+        date.setMinutes(date.getMinutes() - getRandomInt(0, 60)); // random time in the last hour
+        const tweetedDate = date.toDateString();
+        const tweetedTime = date.toLocaleTimeString();
+
+        return {
+            name: user.name,
+            twitterId: user.twitterId,
+            tweetedDate,
+            tweetedTime,
+            message: tweet
+        };
+    }
+
+    function generateTweets() {
+        const tweetsContainer = document.getElementById("tweets-container");
+        tweetsContainer.innerHTML = "";
+        currentTweets = [];
+        for (let i = 0; i < 5; i++) {
+            const tweetData = generateRandomTweet();
+            currentTweets.push(tweetData);
+            const tweetDiv = document.createElement("div");
+            tweetDiv.className = "tweet";
+            tweetDiv.innerHTML = `
+                <h2>${tweetData.name} (${tweetData.twitterId})</h2>
+                <span>${tweetData.tweetedDate} at ${tweetData.tweetedTime}</span>
+                <p>${tweetData.message}</p>
+            `;
+            tweetsContainer.appendChild(tweetDiv);
+        }
+    }
+
+    function updateStats() {
+        const hourlyStats = Math.max(getRandomInt(6, 10), 6); // Ensures at least 6
+        const dailyStats = Math.max(getRandomInt(12, 100), 12); // Ensures at least 12
+        document.getElementById("hourly-stats").innerText = hourlyStats;
+        document.getElementById("daily-stats").innerText = dailyStats;
+    }
+
+    function refreshData() {
+        generateTweets();
+        updateStats();
+    }
+
+    function reportToGovt() {
+        let reportMessage = "Reported Tweets:\n\n";
+        currentTweets.forEach(tweet => {
+            reportMessage += `Name: ${tweet.name}, Twitter ID: ${tweet.twitterId}\n`;
+        });
+        alert(reportMessage);
+    }
+
+    window.onload = refreshData;
+    setInterval(refreshData, 60000); // Refresh every minute
+</script>
+<!-- info section -->
+<section class="info_section ">
+    <div class="container">
+      <div class="info_top">
+        <div class="row">
+          <div class="col-md-3 ">
+            <a class="navbar-brand" href="">
+              Terror Alert
+            </a>
+          </div>
+          <div class="col-md-5 ">
+            <div class="info_contact">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Location
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  +91 1234567890
+                </span>
+              </a>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="info_bottom">
+        <div class="row">
+          <div class="col-lg-3 col-md-6">
+            <div class="info_detail">
+              <h5>
+                Company
+              </h5>
+              <p>
+                Welcome to our Terrorist Message Detection website. Our platform empowers users to report suspicious activities anonymously and securely. Together, we can help authorities prevent potential threats and ensure public safety.
+
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="info_form">
+              <h5>
+                NEWSLETTER
+              </h5>
+              <form action="">
+                <input type="text" placeholder="Enter Your Email" />
+                <button type="submit">
+                  Subscribe
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="info_detail">
+              <h5>
+                Services
+              </h5>
+              <p>
+                Our services include real-time threat reporting and analysis, allowing users to swiftly alert authorities about potential terrorist activities. We ensure anonymous and secure communication to protect the safety and privacy of our users.
+
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6">
+            <div class="">
+              <h5>
+                Useful links
+              </h5>
+              <ul class="info_menu">
+                <li>
+                  <a href="">
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ url_for('about')}}">
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ url_for('about')}}">
+                    Services
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ url_for('cont')}}">
+                    Team
+                  </a>
+                </li>
+                <li class="mb-0">
+                  <a href="{{ url_for('cont')}}">
+                    Contact Us
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <script src="{{url_for('static',filename='js/jquery-3.4.1.min.js')}}"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+  <script src="{{url_for('static',filename='js/custom.js')}}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+  <!-- End Google Map -->
+</body>
+</html>

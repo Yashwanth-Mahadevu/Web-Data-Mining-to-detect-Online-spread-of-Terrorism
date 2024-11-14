@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Basic and Meta Tags -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="static/images/fevicon.png" type="image/x-icon">
+  <title>Terorist Activity Detection</title>
+
+  <!-- CSS and Fonts -->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.css')}}"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+  <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"  />
+  <link rel="stylesheet" href="{{url_for('static',filename='css/responsive.css')}}"  />
+</head>
+<body class="sub_page">
+  <div class="hero_area">
+    <div class="hero_bg_box">
+      <img src="static/images/a1.png" alt="">
+    </div>
+    <!-- Header Section -->
+    <header class="header_section">
+      <div class="header_bottom">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg custom_nav-container ">
+            <a class="navbar-brand " href="index.html">Terorist Activity Detection</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class=""> </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav  ">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{{ url_for('main')}}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('about')}}"> About</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('contact')}}">Prediction</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('home')}}">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span>Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <!-- Contact Section -->
+  <section class="contact_section ">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 px-0">
+          <div class="img-box ">
+            <img src="static/images/a4.jpeg" class="box_img" alt="about img">
+          </div>
+        </div>
+        <div class="col-md-5 mx-auto">
+          <div class="form_container">
+            <div class="heading_container heading_center">
+              <h2>Terorist Activity Detection</h2>
+            </div>
+            <form id="appointment-form" role="form" method="post" action="{{ url_for('ana')}}">
+              <div class="form-row">
+                <div class="form-group col-lg-12">
+                  <input type="text" class="form-control" placeholder="Enter Message Here" name="msg"/>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-lg-12">
+                  <input type="url" class="form-control" placeholder="Enter Website URL" name="url" />
+                </div>
+              </div>
+              <div class="btn_box">
+                <button>Submit</button>
+              </div>
+            </form>
+          </div>
+          {% if res==1 %}
+          <div class="form-row">
+            <div class="form-group col">
+              <br>
+              <br>
+              <h3><strong>Prediction Result:</strong> {{class1}}</h3>
+              {% if keyword_match %}
+              <h4>Matched Keywords: {{keyword_match}}</h4>
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JS Files -->
+  <script src="{{url_for('static',filename='js/jquery-3.4.1.min.js')}}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+  <script src="{{url_for('static',filename='js/custom.js')}}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+</body>
+</html>
